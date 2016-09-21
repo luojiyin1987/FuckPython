@@ -16,4 +16,4 @@ while 1:
     if not line:
         print "finish"
         break
-    
+file.close()    
