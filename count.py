@@ -14,7 +14,7 @@ while 1:
 
     for word_freq in c.most_common(10):
         word, freq = word_freq
-        print
+        print 
 
 
 
