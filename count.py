@@ -10,9 +10,9 @@ while 1:
     defaultMode = jieba.cut(line, cut_all=False)
     searchMode = jieba.cut_for_search(line)
 
-    print "全模式: \n",' '.join(fullMode)
+   #print "全模式: \n",' '.join(fullMode)
     print "精确模式: \n", ' '.join(defaultMode)
-    print '搜索引擎模式: \n',' '.join(searchMode)
+   # print '搜索引擎模式: \n',' '.join(searchMode)
     if not line:
         print "finish"
         break
