@@ -1,20 +1,22 @@
 #coding=utf-8
 import jieba
 from collections  import Counter
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 file = open("word.txt")
 
 while 1:
     line = file.readline()
     print line
-    words = [word for word in jieba.cut(line, cut_all=True) if len(word)>=2]
+    words = [word for word in jieba.cut(line, cut_all=False) if len(word)>=2]
     c = Counter(words)
 
 
     for word_freq in c.most_common(10):
         word, freq = word_freq
-        print 
+        print "%s 出现次数 %d " %(word,freq)
 
 
 
