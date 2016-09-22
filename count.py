@@ -1,4 +1,4 @@
-#coding=utf-8
+#coding=utf8
 import jieba
 from collections  import Counter
 import sys
