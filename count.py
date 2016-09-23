@@ -1,4 +1,5 @@
-#coding=utf8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import jieba
 from collections  import Counter
 import sys
