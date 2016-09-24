@@ -1,12 +1,13 @@
 # -*- encoding: utf- -*-
-import os, string, codecs
-import sys, time
+#import os, string, codecs
+#import sys, time
+
 
 def readflie():
     wordlist=[]
     templist=[]
     wordcount={}
-    tempdict={}
+
     base=open('EnglishWord.txt', 'r')
     baseinfo=base.readlines()
     for  i in baseinfo:
@@ -21,7 +22,7 @@ def readflie():
 
                 if word !='':
                     wordlist.append(word)
-                    #print word
+                    #print word"""
     base.close()
 
     for word in wordlist:
@@ -32,9 +33,13 @@ def readflie():
         if word in templist:
             wordcount[word]=wordcount[word]+1
 
-    for word in   wordcount:
-        print  '%s 次数是  %d' %(word, wordcount[word])
+    wordcount=sorted(wordcount.iteritems(), key=lambda d:d[1], reverse=True)
 
+    #print type(wordlist)
+    #print wordcount
+    for word in   wordcount:
+        #print  '%s 次数是  %s' %(word, wordcount[word])
+        print word
 
 
     #for   word in wordcount:
