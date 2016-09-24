@@ -7,7 +7,6 @@ def readflie():
     wordlist=[]
     templist=[]
     wordcount={}
-
     base=open('EnglishWord.txt', 'r')
     baseinfo=base.readlines()
     for  i in baseinfo:
@@ -24,14 +23,14 @@ def readflie():
                     wordlist.append(word)
                     #print word"""
     base.close()
-
     for word in wordlist:
 
         if word not in templist:
             templist.append(word)
             wordcount[word]=1
-        if word in templist:
+        else:
             wordcount[word]=wordcount[word]+1
+
 
     wordcount=sorted(wordcount.iteritems(), key=lambda d:d[1], reverse=True)
 
@@ -44,6 +43,7 @@ def readflie():
 
     #for   word in wordcount:
     #    print   '%s, value=%d' %(word, wordcount[word])
+
 
 if __name__ == "__main__":
     readflie()
