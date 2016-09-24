@@ -26,7 +26,7 @@ def readflie():
     for word in wordlist:
         if word not in templist:
             templist.append(word)
-    
+
 
     for tempword in templist:
         i=0
@@ -37,7 +37,8 @@ def readflie():
                     print i
                     wordcount[tempword]=i
 
-    print wordcount
+    for   word in wordcount:
+        print   '%s, value=%d' %(word, wordcount[word])
 
 if __name__ == "__main__":
     readflie()
