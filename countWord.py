@@ -3,7 +3,7 @@
 #import sys, time
 
 
-def readflie():
+def readfile():
     wordlist=[]
     templist=[]
     wordcount={}
@@ -12,7 +12,7 @@ def readflie():
     for  i in baseinfo:
         words=i.split(' ')
         for word in words:
-            if word !='\t' and word != '\n' and word !=' ' and len(word)>=2:
+            if word !='\t' and word != '\n'  and len(word)>=2:
                 word = word.replace('\t', '')
                 word = word.replace('\n', '')
                 word = word.replace(',',  '')
@@ -46,4 +46,4 @@ def readflie():
 
 
 if __name__ == "__main__":
-    readflie()
+    readfile()
