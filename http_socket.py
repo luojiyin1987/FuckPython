@@ -1,39 +1,21 @@
-#!/usr/bin/env python
-#coding=utf-8
-
 import socket
-import re
 
-HOST = ''
-PORT = 8000
-
-index_content ='''
-HTTP/1.x 200 ok
-Content-Type: text/html
-'''
-
-file = with open('reg.html')
-reg_content +=file.read()
-
-file = with open('T-mac.jpg')
-pic_content='''
-HTTP/1.x 200 ok
-Content-Type: image/jpg
-
-'''
-pic_content += file.read()
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind((HOST,PORT))
-sock.listen(100)
+HOST, PORT  = '', 8888
+listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+listen_socket.bind((HOST,PORT))
+listen_socket.listen(1)
+print 'Serving HTTP on port %s...' %PORT
 
 while True:
-    conn, addr = sock.accept()
-    request = conn.recv(1024)
-    method = request.split(' ')[0]
-    src = request.split(' ')[1]
+    client_connection, client_address = listen_socket.accept()
+    request = client_connection.recv(1024)
+    print request
 
-    print 'Connect'
+    http_response = """
+HTTP/1.1 200 OK
 
-)
+Hello, World!
+"""
 
+    client_connection.sendall(http_response)
+    client_connection.close()

@@ -1,53 +1,51 @@
 #!/usr/bin/env python
-# coding:utf-8
-
-from daemon import daemon
 import socket
 import select
 import time
-import import pdb
+import pdb
 
-__all__ =["nbNet", "sendDate_mh"]
-//DEBUG = True
+__all__ = ["nbNet", "sendDate_mh"]
 
 from nbNetUtils import *
 
 class nbNetBase:
-    '''non-blocking Net'''
-    def setFd(self, sock):
-        """sock is class object of socket"""
-        #dbgPrint("\n --setFd start!")
+    '''sock os class object of socket'''
+    def sefFD(self, sock):
         tmp_state = STATE()
-        tmp_state.sock_obj = sock
+        tmp_stata.sock_obj = sock
         self.conn_state[sock.fileno()] = tmp_state
-        #self.conn_state[sock.fileno()].printState()
-        #dbgPrint("\n --setFd end!")
-
+    
     def accept(self, fd):
         """fd is fileno() of socket"""
-        #dbgPrint("\n --accept start!")
         sock_state = self.conn_state[fd]
         sock = sock_state.sock_obj
         conn, addr = sock.accept()
-        # set to non-blocking :0
         conn.setblocking(0)
         return conn
 
-    def close(self, fd):
+    def close(self, fd)
         """fd is fileno() of socket"""
-        #pdb.set_trace()
-        print "closing", fd, self.conn_state
+        print "closing ", fd , self.conn_state
         try:
-            # cancel of listen to event
             sock = self.conn_state[fd].sock_obj
             self.epoll_sock.unregister(fd)
             sock.close()
             self.conn_state.pop(fd)
             tmp_pipe = self.popen_pipe
             self.popen_pipe = 0
-            tem_pipe.close()
+            tmp_pipe.close()
         except:
-            #dbgPrint("Close fd: %s abnormal" %fd)
             pass
-    #@profile
     def read(self, fd):
+        """fd is fileno() of socket"""
+        try:
+            sock_state = self.conn_state[fd]
+            conn = sock_state.sock_obj
+            if sock_state.need_read <= 0:
+                raise socket.error
+
+            one_read = conn.recv(sock_state.need_read)
+            if  len(one_read) == 0:
+                raise socket.error
+
+
