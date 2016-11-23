@@ -40,6 +40,7 @@ def process():
     CreateTable(conn)
     InsertDatas(conn)
     QueryDatas(conn)
+    dbconn.commit()
     dbconn.close()
 
 def query(sql, conn):
@@ -48,13 +49,13 @@ def query(sql, conn):
     return rows
 
 def DropTable(conn):
-    conn.execute("DROP TABLE IF EXISTS 'user_key'") 
+    conn.execute("DROP TABLE IF EXISTS `user_key`")  
 
-def CreateTable(conn):
-    sql_create = '''CREATE TABLE 'user_key' ('key' varchar(50) NOT null)'''
+def CreateTable(conn):  
+    sql_create = """ CREATE TABLE `user_key` (`key` VARCHAR(50) NOT NULL)"""
     conn.execute(sql_create)
 
-def InserDates(conn):
+def InsertDatas(conn):
     insert_sql = "INSERT INTO user_key VALUES (%(value)s)"
     key_list = generate(200)
     conn.executemany(insert_sql,[dict(value=v) for v in key_list])
@@ -63,13 +64,13 @@ def DeleteDate():
     del_sql = "delete from user_key where id =2"
     execute(del_sql)
 
-def QueryDate(conn):
+def QueryDatas(conn):
     sql ="select * from user_key"
     rows = query(sql, conn)
     printResult(rows)
 
 def printResult(rows):
-    if rows in None:
+    if rows is None:
         print "rows None"
     for row in rows:
         print row
