@@ -1,6 +1,6 @@
 #coding:utf-8
 from flask import request
-from  .import app, jsonrpc
+from  . import app, jsonrpc
 from auth import auth_login
 import json , traceback
 import utils
@@ -79,3 +79,27 @@ def getbyid(auth_info, **kwargs):
         return json.dumps({'code':0,  'result':result})
     except:
         utils.write_log('api').error('select power by id error: %s' %traceback.format_exc())
+        return json.dumps({'code':1, 'errmsg':'get power failed'})
+
+
+@jsonrpc.methond('power.update')
+@auth_logig
+def update(auth_info, **kwargs):
+    username = auth_info['username']
+    if '1' not in auth_info['r_id']:
+        return json.dumps({'code':1, 'errmsg':'you not admin, no power'})
+    try:
+        data = request.get_json()['params']
+        where = data.get('where', None)
+        data = data.get('data', None)
+        if no where:
+            return json.dumps({'code':1, 'errmsg':'you not admin, no power'})
+        result=app.config['db'].execute_update_sql('power', data, where)
+        if not result:
+            return json.dumps({'code':1, 'errmsg':'data not exist'})
+        utils.write_log('api').info("%s update power successed" % username)
+        return json.dumps({'code':0, 'result':'update power success'})
+    except:
+        utils.write_log('api').error("update error: %s" % traceback.format_exc())
+        return json.dumps({'code':1, 'errmsg':'update power failed'})
+        
